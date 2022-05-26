@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./js/funciones.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <h1>HEXAGRAMAS</h1>
+    <p>Instrucciones:</p>
+    <p>inserta en cada uno de los campos un valor ya sea 2 o 3</p>
+    <p>2: Ying</p>
+    <p>3: Yang</p>
+    <p>presiona el boton aceptar para agregar la linea (esta se generará dependiendo de los datos que ingreses)</p>
+    <p>Presiona el boton 'Borrar linea' para elimminar la linea insertada más reciente</p>
+    <p>Presiona el boton 'borrar Hexagrama' para eliminar el hexagrama</p>
+
+    <form action="">
+        <input type="number" placeholder="primer elemento" id="entrada1">
+        <br>
+        <input type="number" placeholder="segundo elemento" id="entrada2">
+        <br>
+        <input type="number" placeholder="tercer elemento" id="entrada3">
+        <br>
+        <input type="button" value="agregar" onclick="generarLinea(entrada1, entrada2, entrada3)">
+        <input type="button" value="borrar linea">
+        <input type="button" value="borrar Hexagrama">
+    </form>
+
+    <div name="hexagrama">
+        <h1>aqui vamos a mostrar el hexagrama ya construido</h1>
+        <h1 id="lienzo"></h1>
+    </div>
+</body>
+</html>
