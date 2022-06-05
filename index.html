@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="./js/funciones.js"></script>
     <title>Document</title>
 </head>
 <body>
@@ -25,22 +24,24 @@
         <input type="number" placeholder="tercer elemento" id="entrada3">
         <br>
         <input type="button" value="agregar" onclick="generarLinea(entrada1, entrada2, entrada3)">
-        <input type="button" value="borrar linea">
-        <input type="button" value="borrar Hexagrama">
+        <input type="button" value="borrar linea" onclick="eliminarLinea()">
+        <input type="button" value="borrar Hexagrama" onclick="eliminarHexagrama()">
     </form>
 
-    <div name="hexagrama">
+    <div name="hexagrama" id="hexagrama">
         <h1>aqui vamos a mostrar el hexagrama ya construido</h1>
         <h1 id="lienzo"></h1>
+
+        <canvas id="canva" width="500" height="750"> </canvas>
     </div>
 
     <div name="hexagrama2">
-        <h1>aqui vamos a mostrar el hexagrama ya construido</h1>
+        <h1>segundo hexagrama</h1>
         <h1 id="lienzo2"></h1>
     </div>
 
     <div name="hexagram3">
-        <h1>aqui vamos a mostrar el hexagrama ya construido</h1>
+        <h1>Tercer hexagrama</h1>
         <h1 id="lienzo3"></h1>
     </div>
 
@@ -145,5 +146,7 @@
     <div name = prueba id="prueba">
         
     </div>
+
+    <script src="./js/funciones.js"></script>
 </body>
 </html>

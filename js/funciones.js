@@ -1,5 +1,122 @@
 var hexagrama =[""];
 
+//variables de canvas
+
+var lienzo = document.getElementById("canva");
+console.log(lienzo)
+var ctx = lienzo.getContext("2d");
+
+var x = lienzo.width/2;
+var y = 75;
+var bottom = lienzo.height-y/2;
+var pila = [];
+
+var dWidth = 5;
+var dHeight = 5;
+
+var width = 100;
+var height = 35;
+
+var banderaTope = true;
+
+var contador = 0;
+var contador2 =26;
+
+//-------------------------------------------------------------
+//funciones de canvas
+
+function drawBackground(){
+    ctx.fillStyle = "rgb(94, 209, 157)";
+    ctx.fillRect (100, 50, lienzo.width, lienzo.height);
+
+    ctx.font = '12px negrita Times';
+    ctx.fillText ("x", 0, 100);
+    ctx.fillText ("y", 0, 50);  
+}
+
+function pop(){
+    animateBlockRise();
+}
+
+function push(){
+
+    animateBlockDrop();
+    //console.log(pila);
+}
+
+function drawblock(x, y){
+    //console.log("esto si se esta haciendo");
+    ctx.fillStyle="rgb(67, 151, 188)";
+    ctx.fillRect(x, y, 200,15);
+
+    ctx.fillStyle = "#000000";
+    ctx.font = '26px negrita Times';
+    
+    //ctx.fillText (contador, x + width/2-5, y+height/2+10);
+    return [x, y];
+}
+
+function animateBlockDrop(){
+    
+    var dy= 10;
+
+    ctx.clearRect(0, 0, lienzo.width, lienzo.height);
+    drawBackground();
+    
+    for(var i = 0; i < pila.length; i++){
+        drawblock(pila[i][0], pila[i][1], pila[i][2]);
+    }
+
+    var bloque = drawblock(x, y);
+    y+=dy;
+
+    if(y<bottom){
+        requestAnimationFrame(animateBlockDrop);
+    }else{
+        bottom -= 35;
+        y = 75;
+        pila.push(bloque);
+        
+    }
+        
+}
+
+
+function animateBlockRise(){
+    var dy= 10;
+
+    console.log(pila);
+
+    ctx.clearRect(0, 0, lienzo.width, lienzo.height);
+    drawBackground();
+    
+    for(var i = 0; i < pila.length; i++){
+        drawblock(pila[i][0], pila[i][1], pila[i][2]);
+    }
+
+    //var bloque = drawblock(pila[0][0], pila[0][1]);
+ 
+
+    if(pila[pila.length-1][1]>75){
+        pila[pila.length-1][1] -= dy;
+        requestAnimationFrame(animateBlockRise);
+    }else{
+        pila.pop();
+        bottom += 35;
+
+        ctx.clearRect(0, 0, lienzo.width, lienzo.height);
+        drawBackground();
+    
+        for(var i = 0; i < pila.length; i++){
+            drawblock(pila[i][0], pila[i][1], pila[i][2]);
+        }
+        
+    }
+}
+
+//--------------------------------------------------------------
+
+
 Array.prototype.equals = function (getArray) {
     if (this.length != getArray.length) return false;
   
@@ -51,6 +168,10 @@ function generarLinea(a, b, c){
         
     }
 
+    mostrarHexagrama(cadena, cadena1, cadena2, auxiliares);
+}
+
+function mostrarHexagrama(cadena, cadena1, cadena2, auxiliares){
     for(var i = 0; i<hexagrama.length-1; i++){
             
         cadena += "<h1>"+hexagrama[i]+"</h1>";
@@ -58,10 +179,6 @@ function generarLinea(a, b, c){
 
 
     document.getElementById("lienzo").innerHTML=cadena;
-
-    document.getElementById("prueba").innerHTML='<h1 id="h1">hola</h1>'
-
-    document.getElementById("h1").style.color="RED";
 
     if(hexagrama.length==7){
 
@@ -89,11 +206,24 @@ function generarLinea(a, b, c){
 
         if(auxiliares[0] == true){
             document.getElementById('columna'+localizarenTabla(auxiliares[1])[0]+localizarenTabla(auxiliares[1])[1]+'').style.backgroundColor="yellow"; 
-        document.getElementById('columna'+localizarenTabla(auxiliares[2])[0]+localizarenTabla(auxiliares[2])[1]+'').style.backgroundColor="yellow";     
+            document.getElementById('columna'+localizarenTabla(auxiliares[2])[0]+localizarenTabla(auxiliares[2])[1]+'').style.backgroundColor="yellow";     
         }else{
-            document.getElementById('columna'+localizarenTabla(hexagrama)[0]+localizarenTabla(hexagrama)[1]+'').style.backgroundColor="yellow";   
-        document.getElementById('columna'+localizarenTabla(auxiliares[1])[0]+localizarenTabla(auxiliares[1])[1]+'').style.backgroundColor="yellow"; 
-        document.getElementById('columna'+localizarenTabla(auxiliares[2])[0]+localizarenTabla(auxiliares[2])[1]+'').style.backgroundColor="yellow";     
+            var numeroHexagrama = document.getElementById('columna'+localizarenTabla(hexagrama)[0]+localizarenTabla(hexagrama)[1]+'');
+            numeroHexagrama.style.backgroundColor="yellow";
+
+            var seccion = document.getElementById("hexagrama");
+            console.log(seccion);
+            console.log(numeroHexagrama.textContent);
+
+            seccion.addEventListener("mouseover", function(event){
+                alert(TextoHexagrama(Number(numeroHexagrama.textContent)));
+            });
+
+            //document.getElementById('columna'+localizarenTabla(hexagrama)[0]+localizarenTabla(hexagrama)[1]+'').style.backgroundColor="yellow";   
+            //document.getElementById('columna'+localizarenTabla(auxiliares[1])[0]+localizarenTabla(auxiliares[1])[1]+'').style.backgroundColor="yellow"; 
+            //document.getElementById('columna'+localizarenTabla(auxiliares[2])[0]+localizarenTabla(auxiliares[2])[1]+'').style.backgroundColor="yellow";     
+
+
         }
         
     }
@@ -179,3 +309,162 @@ function HexagramasAuxiliares(hexagrama){
         return [false];
     }
 }
+
+function eliminarLinea(){
+    var cadena="";
+    var cadena1="";
+    var cadena2="";
+    var auxiliares;
+    
+    hexagrama.shift();
+
+    mostrarHexagrama(cadena, cadena1, cadena2, auxiliares);
+}
+
+function eliminarHexagrama(){
+    var cadena="";
+    var cadena1="";
+    var cadena2="";
+    var auxiliares;
+    
+    hexagrama = [""];
+
+    mostrarHexagrama(cadena, cadena1, cadena2, auxiliares);
+}
+
+function TextoHexagrama(numHex){
+    var prediccion ="";
+
+    if(numHex == 1){
+        prediccion = "Cielo. Lo creativo. El principio generador";
+    }else if(numHex == 2){
+        prediccion = "Tierra. Lo receptivo. El principio pasivo";
+    }else if(numHex == 3){
+        prediccion = "Acumular. El obstáculo inicial.La dificultad del comienzo";
+    }else if(numHex == 4){
+        prediccion = "Juventud.El joven necio.La inmadurez.";
+    }else if(numHex == 5){
+        prediccion = "Esperar.La espera.La maduración.";
+    }else if(numHex == 6){
+        prediccion = "Disputar.El conflicto.El pleito.";
+    }else if(numHex == 7){
+        prediccion = "Ejército.La legión.";
+    }else if(numHex == 8){
+        prediccion = "Solidaridad.La unión";
+    }else if(numHex == 9){
+        prediccion = "Animalito doméstico.La pequeña fuerza";
+    }else if(numHex == 10){
+        prediccion = "Caminar.El porte.El paso cauteloso";
+    }else if(numHex == 11){
+        prediccion = "Prosperidad.La paz.La armonía.";
+    }else if(numHex == 12){
+        prediccion = "Cierre.El estancamiento.Lo inerte.";
+    }else if(numHex == 13){
+        prediccion = "Hombres Reunidos. La unión comunitaria";
+    }else if(numHex == 14){
+        prediccion = "Gran dominio. La gran posesión.Lo que se tiene de más.";
+    }else if(numHex == 15){
+        prediccion = "Condescendencia. La modestia.La humildad";
+    }else if(numHex == 16){
+        prediccion = "Ocuparse.El entusiasmo.La algarabía.";
+    }else if(numHex == 17){
+        prediccion = "Conformarse.La continuidad.El seguimiento.";
+    }else if(numHex == 18){
+        prediccion = "Destrucción.La reconstrucción. La labor en lo corrompido.";
+    }else if(numHex == 19){
+        prediccion = "Acercarse.Lo que va llegando.";
+    }else if(numHex == 20){
+        prediccion = "Observar.La contemplación. ";
+    }else if(numHex == 21){
+        prediccion = "Quebrar mordiendo.La dentellada.La filosa mordedura";
+    }else if(numHex == 22){
+        prediccion = "Adornar.La elegancia.La gracia.";
+    }else if(numHex == 23){
+        prediccion = "Resquebrajar.La desintegración.El derrumbe";
+    }else if(numHex == 24){
+        prediccion = "Regresar.El retorno.Lo que vuelve.";
+    }else if(numHex == 25){
+        prediccion = "Sinceridad. La inocencia.La naturalidad.";
+    }else if(numHex == 26){
+        prediccion = "Fuerza educadora.El poder de lo fuerte.La gran acumulación.";
+    }else if(numHex == 27){
+        prediccion = "Nutrirse.La alimentación.Las fauces.";
+    }else if(numHex == 28){
+        prediccion = "Excesos.La preponderancia de lo grande.";
+    }else if(numHex == 29){
+        prediccion = "Peligro.Lo abismal.La caida.";
+    }else if(numHex == 30){
+        prediccion = "Distinguir.El resplandor.Lo adherente.";
+    }else if(numHex == 31){
+        prediccion = "Unir.La influencia.La atracción.";
+    }else if(numHex == 32){
+        prediccion = "Luna Creciente.La duración. La permanencia.";
+    }else if(numHex == 33){
+        prediccion = "Retirarse.EL repliegue.";
+    }else if(numHex == 34){
+        prediccion = "Gran fuerza.El gran vigor.";
+    }else if(numHex == 35){
+        prediccion = "Progresar.El avance.";
+    }else if(numHex == 36){
+        prediccion = "Luz que se apaga.El oscurecimiento.";
+    }else if(numHex == 37){
+        prediccion = "Gente de familia. El clan.";
+    }else if(numHex == 38){
+        prediccion = "Contraste.La oposición.El antagonismo.";
+    }else if(numHex == 39){
+        prediccion = "Dificultad.El obstáculo. El impedimento.";
+    }else if(numHex == 40){
+        prediccion = "Explicar.La liberación. El alivio.";
+    }else if(numHex == 41){
+        prediccion = "Perder.La disminución.";
+    }else if(numHex == 42){
+        prediccion = "Evolución.El aumento.La ganancia.";
+    }else if(numHex == 43){
+        prediccion = "Decidir.El desbordamiento.La resolución.";
+    }else if(numHex == 44){
+        prediccion = "Encontrarse.El acoplamiento.";
+    }else if(numHex == 45){
+        prediccion = "Cosechar.La reunión.La convergencia.";
+    }else if(numHex == 46){
+        prediccion = "Subir.El ascenso.La escalada.";
+    }else if(numHex == 47){
+        prediccion = "Angustia.La pesadumbre.El agotamiento.";
+    }else if(numHex == 48){
+        prediccion = "El pozo de agua.La fuente.";
+    }else if(numHex == 49){
+        prediccion = "Renovar.La revolución.El cambio";
+    }else if(numHex == 50){
+        prediccion = "La caldera.Lo alquímico";
+    }else if(numHex == 51){
+        prediccion = "Trueno.La conmoción.Lo suscitativo.";
+    }else if(numHex == 52){
+        prediccion = "Cimientos.La quietud.La detención.";
+    }else if(numHex == 53){
+        prediccion = "Evolución.El progreso gradual.";
+    }else if(numHex == 54){
+        prediccion = "Desposar a la hija menor.La doncella.";
+    }else if(numHex == 55){
+        prediccion = "Abundancia.La plenitud.";
+    }else if(numHex == 56){
+        prediccion = "Viajero.El andariego";
+    }else if(numHex == 57){
+        prediccion = "Viento.Lo penetrante.Lo suave.";
+    }else if(numHex == 58){
+        prediccion = "Recogerse. La serenidad. La satisfacción.";
+    }else if(numHex == 59){
+        prediccion = "Confusión. La dispersión.La disolución ";
+    }else if(numHex == 60){
+        prediccion = "Moderación.La restricción.La limitación ";
+    }else if(numHex == 61){
+        prediccion = "Fe Interior.La verdad interior.La sinceridad interna.";
+    }else if(numHex == 62){
+        prediccion = "Pequeñas cosas importantes.La pequeña preponderancia.";
+    }else if(numHex == 63){
+        prediccion = "Conclusiones.Después de la realización.";
+    }else if(numHex == 64){
+        prediccion = "Inconcluso.Antes de la realización.";
+    }
+
+    return prediccion;
+}
+
