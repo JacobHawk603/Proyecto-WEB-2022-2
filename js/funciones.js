@@ -345,6 +345,7 @@ function mostrarHexagrama(cadena, cadena1, cadena2, auxiliares){
 
         }
 
+        
         console.log(document.getElementById('columna"'+localizarenTabla(hexagrama)[0]+localizarenTabla(hexagrama)[1]+'"'));
         console.log(localizarenTabla(hexagrama));
         console.log('columna"'+localizarenTabla(hexagrama)[0]+localizarenTabla(hexagrama)[1]+'"')
@@ -366,12 +367,15 @@ function mostrarHexagrama(cadena, cadena1, cadena2, auxiliares){
             console.log(numeroHexagrama.textContent);
 
             seccion.addEventListener("mouseover", function(event){
-                alert(TextoHexagrama(Number(numeroHexagrama.textContent)));
+                alert(TextoHexagrama(Number(numeroHexagrama.textContent))[0]);
             });
 
             seccion2.addEventListener("mouseover", function(event){
-                alert(TextoHexagrama(Number(numeroHexagrama2.textContent)));
+                alert(TextoHexagrama(Number(numeroHexagrama2.textContent))[0]);
             });
+
+            document.getElementById("nombreHexagrama2").innerHTML=TextoHexagrama(Number(numeroHexagrama.textContent))[1];
+            document.getElementById("nombreHexagrama3").innerHTML=TextoHexagrama(Number(numeroHexagrama2.textContent))[1];
 
         }else{
             var numeroHexagrama = document.getElementById('columna'+localizarenTabla(hexagrama)[0]+localizarenTabla(hexagrama)[1]+'');
@@ -382,9 +386,10 @@ function mostrarHexagrama(cadena, cadena1, cadena2, auxiliares){
             console.log(numeroHexagrama.textContent);
 
             seccion.addEventListener("mouseover", function(event){
-                alert(TextoHexagrama(Number(numeroHexagrama.textContent)));
+                alert(TextoHexagrama(Number(numeroHexagrama.textContent))[0]);
             });
 
+            document.getElementById("nombreHexagrama").innerHTML=TextoHexagrama(Number(numeroHexagrama.textContent))[1];
             //document.getElementById('columna'+localizarenTabla(hexagrama)[0]+localizarenTabla(hexagrama)[1]+'').style.backgroundColor="yellow";   
             //document.getElementById('columna'+localizarenTabla(auxiliares[1])[0]+localizarenTabla(auxiliares[1])[1]+'').style.backgroundColor="yellow"; 
             //document.getElementById('columna'+localizarenTabla(auxiliares[2])[0]+localizarenTabla(auxiliares[2])[1]+'').style.backgroundColor="yellow";     
@@ -506,137 +511,202 @@ function eliminarHexagrama(){
 
 function TextoHexagrama(numHex){
     var prediccion ="";
+    var nombreHex = "";
 
     if(numHex == 1){
+        nombreHex = "1. Ch'len";
         prediccion = "Cielo. Lo creativo. El principio generador";
     }else if(numHex == 2){
+        nombreHex = "2. K'un";
         prediccion = "Tierra. Lo receptivo. El principio pasivo";
     }else if(numHex == 3){
+        nombreHex = "3. Chun";
         prediccion = "Acumular. El obstáculo inicial.La dificultad del comienzo";
     }else if(numHex == 4){
+        nombreHex = "4. Meng";
         prediccion = "Juventud.El joven necio.La inmadurez.";
     }else if(numHex == 5){
+        nombreHex = "5. Hsu";
         prediccion = "Esperar.La espera.La maduración.";
     }else if(numHex == 6){
+        nombreHex = "6. Sung";
         prediccion = "Disputar.El conflicto.El pleito.";
     }else if(numHex == 7){
+        nombreHex = "7. Shih";
         prediccion = "Ejército.La legión.";
     }else if(numHex == 8){
+        nombreHex = "8. Pi";
         prediccion = "Solidaridad.La unión";
     }else if(numHex == 9){
+        nombreHex = "9. Hsiao Ch'u";
         prediccion = "Animalito doméstico.La pequeña fuerza";
     }else if(numHex == 10){
+        nombreHex = "10. Lu";
         prediccion = "Caminar.El porte.El paso cauteloso";
     }else if(numHex == 11){
+        nombreHex = "11. T'ai";
         prediccion = "Prosperidad.La paz.La armonía.";
     }else if(numHex == 12){
+        nombreHex = "12. P'i";
         prediccion = "Cierre.El estancamiento.Lo inerte.";
     }else if(numHex == 13){
+        nombreHex = "13. T'ung Jen";
         prediccion = "Hombres Reunidos. La unión comunitaria";
     }else if(numHex == 14){
+        nombreHex = "14. Ta yu";
         prediccion = "Gran dominio. La gran posesión.Lo que se tiene de más.";
     }else if(numHex == 15){
+        nombreHex = "15. Ch'ien";
         prediccion = "Condescendencia. La modestia.La humildad";
     }else if(numHex == 16){
+        nombreHex = "16. Yu";
         prediccion = "Ocuparse.El entusiasmo.La algarabía.";
     }else if(numHex == 17){
+        nombreHex = "17. Sui";
         prediccion = "Conformarse.La continuidad.El seguimiento.";
     }else if(numHex == 18){
+        nombreHex = "18. Ku";
         prediccion = "Destrucción.La reconstrucción. La labor en lo corrompido.";
     }else if(numHex == 19){
+        nombreHex = "19. Lin";
         prediccion = "Acercarse.Lo que va llegando.";
     }else if(numHex == 20){
+        nombreHex = "20. Kuan";
         prediccion = "Observar.La contemplación. ";
     }else if(numHex == 21){
+        nombreHex = "21. Shith Ho";
         prediccion = "Quebrar mordiendo.La dentellada.La filosa mordedura";
     }else if(numHex == 22){
+        nombreHex = "22. Pi";
         prediccion = "Adornar.La elegancia.La gracia.";
     }else if(numHex == 23){
+        nombreHex = "23. Po";
         prediccion = "Resquebrajar.La desintegración.El derrumbe";
     }else if(numHex == 24){
+        nombreHex = "24. Fu";
         prediccion = "Regresar.El retorno.Lo que vuelve.";
     }else if(numHex == 25){
+        nombreHex = "25. Wu Wuang";
         prediccion = "Sinceridad. La inocencia.La naturalidad.";
     }else if(numHex == 26){
+        nombreHex = "26. Ta Ch'u";
         prediccion = "Fuerza educadora.El poder de lo fuerte.La gran acumulación.";
     }else if(numHex == 27){
+        nombreHex = "27. I";
         prediccion = "Nutrirse.La alimentación.Las fauces.";
     }else if(numHex == 28){
+        nombreHex = "28. Ta Kuo";
         prediccion = "Excesos.La preponderancia de lo grande.";
     }else if(numHex == 29){
+        nombreHex = "29. K'an";
         prediccion = "Peligro.Lo abismal.La caida.";
     }else if(numHex == 30){
+        nombreHex = "30. Li";
         prediccion = "Distinguir.El resplandor.Lo adherente.";
     }else if(numHex == 31){
+        nombreHex = "31. Hsien";
         prediccion = "Unir.La influencia.La atracción.";
     }else if(numHex == 32){
+        nombreHex = "32. Heng";
         prediccion = "Luna Creciente.La duración. La permanencia.";
     }else if(numHex == 33){
+        nombreHex = "33. Tun";
         prediccion = "Retirarse.EL repliegue.";
     }else if(numHex == 34){
+        nombreHex = "34. Ta Chuang";
         prediccion = "Gran fuerza.El gran vigor.";
     }else if(numHex == 35){
+        nombreHex = "35. Chin";
         prediccion = "Progresar.El avance.";
     }else if(numHex == 36){
+        nombreHex = "36. M;ng I";
         prediccion = "Luz que se apaga.El oscurecimiento.";
     }else if(numHex == 37){
+        nombreHex = "37. Chyia Yen";
         prediccion = "Gente de familia. El clan.";
     }else if(numHex == 38){
+        nombreHex = "38. K'uei";
         prediccion = "Contraste.La oposición.El antagonismo.";
     }else if(numHex == 39){
+        nombreHex = "39. Chien";
         prediccion = "Dificultad.El obstáculo. El impedimento.";
     }else if(numHex == 40){
+        nombreHex = "40. Hsieh";
         prediccion = "Explicar.La liberación. El alivio.";
     }else if(numHex == 41){
+        nombreHex = "41. Sun";
         prediccion = "Perder.La disminución.";
     }else if(numHex == 42){
+        nombreHex = "42. I";
         prediccion = "Evolución.El aumento.La ganancia.";
     }else if(numHex == 43){
+        nombreHex = "43. Kuai";
         prediccion = "Decidir.El desbordamiento.La resolución.";
     }else if(numHex == 44){
+        nombreHex = "44. Kou";
         prediccion = "Encontrarse.El acoplamiento.";
     }else if(numHex == 45){
+        nombreHex = "45. Ts'ui";
         prediccion = "Cosechar.La reunión.La convergencia.";
     }else if(numHex == 46){
+        nombreHex = "46. Sheng";
         prediccion = "Subir.El ascenso.La escalada.";
     }else if(numHex == 47){
+        nombreHex = "47. K'un";
         prediccion = "Angustia.La pesadumbre.El agotamiento.";
     }else if(numHex == 48){
+        nombreHex = "48. Ching";
         prediccion = "El pozo de agua.La fuente.";
     }else if(numHex == 49){
+        nombreHex = "49. Ko";
         prediccion = "Renovar.La revolución.El cambio";
     }else if(numHex == 50){
+        nombreHex = "50. Ting";
         prediccion = "La caldera.Lo alquímico";
     }else if(numHex == 51){
+        nombreHex = "51. Chen";
         prediccion = "Trueno.La conmoción.Lo suscitativo.";
     }else if(numHex == 52){
+        nombreHex = "52. Ken";
         prediccion = "Cimientos.La quietud.La detención.";
     }else if(numHex == 53){
+        nombreHex = "53. Chien";
         prediccion = "Evolución.El progreso gradual.";
     }else if(numHex == 54){
+        nombreHex = "54. Kuei Mei";
         prediccion = "Desposar a la hija menor.La doncella.";
     }else if(numHex == 55){
+        nombreHex = "55. Feng";
         prediccion = "Abundancia.La plenitud.";
     }else if(numHex == 56){
+        nombreHex = "56. Lu";
         prediccion = "Viajero.El andariego";
     }else if(numHex == 57){
+        nombreHex = "57. Sun";
         prediccion = "Viento.Lo penetrante.Lo suave.";
     }else if(numHex == 58){
+        nombreHex = "58. Tui";
         prediccion = "Recogerse. La serenidad. La satisfacción.";
     }else if(numHex == 59){
+        nombreHex = "59. Huan";
         prediccion = "Confusión. La dispersión.La disolución ";
     }else if(numHex == 60){
+        nombreHex = "60. Chieh";
         prediccion = "Moderación.La restricción.La limitación ";
     }else if(numHex == 61){
+        nombreHex = "61. Chung Fu";
         prediccion = "Fe Interior.La verdad interior.La sinceridad interna.";
     }else if(numHex == 62){
+        nombreHex = "62. Hsiao Kuo";
         prediccion = "Pequeñas cosas importantes.La pequeña preponderancia.";
     }else if(numHex == 63){
+        nombreHex = "63. Chi Chi";
         prediccion = "Conclusiones.Después de la realización.";
     }else if(numHex == 64){
+        nombreHex = "64. Wei Chi";
         prediccion = "Inconcluso.Antes de la realización.";
     }
 
-    return prediccion;
+    return [prediccion, nombreHex];
 }
 
