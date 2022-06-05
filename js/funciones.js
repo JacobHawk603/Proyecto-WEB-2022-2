@@ -1,12 +1,16 @@
 var hexagrama =[""];
+var suma;
 
 //variables de canvas
 
 var lienzo = document.getElementById("canva");
+var lienzo2 = document.getElementById("canva");
+var lienzo3 = document.getElementById("canva");
+
 console.log(lienzo)
 var ctx = lienzo.getContext("2d");
 
-var x = lienzo.width/2;
+var x = lienzo.width/2-25;
 var y = 75;
 var bottom = lienzo.height-y/2;
 var pila = [];
@@ -21,6 +25,7 @@ var banderaTope = true;
 
 var contador = 0;
 var contador2 =26;
+
 
 //-------------------------------------------------------------
 //funciones de canvas
@@ -44,19 +49,42 @@ function push(){
     //console.log(pila);
 }
 
-function drawblock(x, y){
+function drawblock(x, y, suma){
     //console.log("esto si se esta haciendo");
-    ctx.fillStyle="rgb(67, 151, 188)";
-    ctx.fillRect(x, y, 200,15);
+    if(suma == 6){
+        ctx.fillStyle="rgb(67, 151, 188)";
+        ctx.fillRect(x, y, 100,15);
 
-    ctx.fillStyle = "#000000";
-    ctx.font = '26px negrita Times';
+        ctx.fillStyle="rgb(67, 151, 188)";
+        ctx.fillRect(x+120, y, 100,15);
+
+        ctx.fillStyle = "#000000";
+        ctx.font = '26px negrita Times';
+        ctx.fillText("X", x+105, y);
+    }else if(suma == 7){
+        ctx.fillStyle="rgb(67, 151, 188)";
+        ctx.fillRect(x, y, 220,15);
+    }else if(suma == 8){
+        ctx.fillStyle="rgb(67, 151, 188)";
+        ctx.fillRect(x, y, 100,15);
+
+        ctx.fillStyle="rgb(67, 151, 188)";
+        ctx.fillRect(x+120, y, 100,15);
+    }else if(suma = 9){
+        ctx.fillStyle="rgb(67, 151, 188)";
+        ctx.fillRect(x, y, 220,15);
+        ctx.fillStyle = "#000000";
+        ctx.font = '26px negrita Times';
+        ctx.fillText("O", x+105, y);
+    }
+        
     
     //ctx.fillText (contador, x + width/2-5, y+height/2+10);
-    return [x, y];
+    return [x, y, suma];
 }
 
 function animateBlockDrop(){
+   
     
     var dy= 10;
 
@@ -67,17 +95,21 @@ function animateBlockDrop(){
         drawblock(pila[i][0], pila[i][1], pila[i][2]);
     }
 
-    var bloque = drawblock(x, y);
-    y+=dy;
+    if(contador<6){
 
-    if(y<bottom){
-        requestAnimationFrame(animateBlockDrop);
-    }else{
-        bottom -= 35;
-        y = 75;
-        pila.push(bloque);
-        
+        var bloque = drawblock(x, y, suma);
+        y+=dy;
+
+        if(y<bottom){
+            requestAnimationFrame(animateBlockDrop);
+        }else{
+            bottom -= 35;
+            y = 75;
+            pila.push(bloque);
+            contador++;
+        }
     }
+    
         
 }
 
@@ -96,21 +128,22 @@ function animateBlockRise(){
 
     //var bloque = drawblock(pila[0][0], pila[0][1]);
  
+    if(contador<6){
+        if(pila[pila.length-1][1]>75){
+            pila[pila.length-1][1] -= dy;
+            requestAnimationFrame(animateBlockRise);
+        }else{
+            pila.pop();
+            bottom += 35;
+            contador--;
 
-    if(pila[pila.length-1][1]>75){
-        pila[pila.length-1][1] -= dy;
-        requestAnimationFrame(animateBlockRise);
-    }else{
-        pila.pop();
-        bottom += 35;
-
-        ctx.clearRect(0, 0, lienzo.width, lienzo.height);
-        drawBackground();
-    
-        for(var i = 0; i < pila.length; i++){
-            drawblock(pila[i][0], pila[i][1], pila[i][2]);
-        }
+            ctx.clearRect(0, 0, lienzo.width, lienzo.height);
+            drawBackground();
         
+            for(var i = 0; i < pila.length; i++){
+                drawblock(pila[i][0], pila[i][1], pila[i][2]);
+            }
+        }
     }
 }
 
@@ -149,7 +182,7 @@ function generarLinea(a, b, c){
             //document.getElementById("lienzo").innerHTML="______";
             console.log(typeof(moneda1))
     
-            var suma = moneda1 + moneda2 + moneda3;
+            suma = moneda1 + moneda2 + moneda3;
             console.log(typeof(suma))
     
             if(suma ==6){
@@ -169,6 +202,7 @@ function generarLinea(a, b, c){
     }
 
     mostrarHexagrama(cadena, cadena1, cadena2, auxiliares);
+    animateBlockDrop();
 }
 
 function mostrarHexagrama(cadena, cadena1, cadena2, auxiliares){
@@ -178,7 +212,9 @@ function mostrarHexagrama(cadena, cadena1, cadena2, auxiliares){
     }
 
 
-    document.getElementById("lienzo").innerHTML=cadena;
+    //document.getElementById("lienzo").innerHTML=cadena;
+    drawBackground();
+    
 
     if(hexagrama.length==7){
 
@@ -189,7 +225,7 @@ function mostrarHexagrama(cadena, cadena1, cadena2, auxiliares){
         if(auxiliares[0]==true){
             
             console.log(auxiliares);
-            for(var i = 0; i<hexagrama.length-1; i++){
+            for(var i = 0; i<hexagrama.length; i++){
                 
                 cadena1 += "<h1>"+auxiliares[1][i]+"</h1>";
                 cadena2 += "<h1>"+auxiliares[2][i]+"</h1>";
@@ -211,7 +247,7 @@ function mostrarHexagrama(cadena, cadena1, cadena2, auxiliares){
             var numeroHexagrama = document.getElementById('columna'+localizarenTabla(hexagrama)[0]+localizarenTabla(hexagrama)[1]+'');
             numeroHexagrama.style.backgroundColor="yellow";
 
-            var seccion = document.getElementById("hexagrama");
+            var seccion = document.getElementById("canva");
             console.log(seccion);
             console.log(numeroHexagrama.textContent);
 
@@ -293,18 +329,18 @@ function HexagramasAuxiliares(hexagrama){
         
         for(var i = 0; i<hexagrama.length-1; i++ ){
             if(hexagrama[i]=="___0___"){
-                auxiliar1.unshift("_______");
-                auxiliar2.unshift("__   __");
+                auxiliar1.push("_______");
+                auxiliar2.push("__   __");
             }else if(hexagrama[i]=="___x___"){
-                auxiliar1.unshift("__   __");
-                auxiliar2.unshift("_______");
+                auxiliar1.push("__   __");
+                auxiliar2.push("_______");
             }else{
-                auxiliar1.unshift(hexagrama[i]);
-                auxiliar2.unshift(hexagrama[i]);
+                auxiliar1.push(hexagrama[i]);
+                auxiliar2.push(hexagrama[i]);
             }
         }
 
-        return [true, auxiliar2, auxiliar1];
+        return [true, auxiliar1, auxiliar2];
     }else{
         return [false];
     }
@@ -317,6 +353,7 @@ function eliminarLinea(){
     var auxiliares;
     
     hexagrama.shift();
+    animateBlockRise();
 
     mostrarHexagrama(cadena, cadena1, cadena2, auxiliares);
 }
@@ -328,6 +365,9 @@ function eliminarHexagrama(){
     var auxiliares;
     
     hexagrama = [""];
+    pila = [];
+    contador=0;
+    bottom = lienzo.height-y/2;
 
     mostrarHexagrama(cadena, cadena1, cadena2, auxiliares);
 }
