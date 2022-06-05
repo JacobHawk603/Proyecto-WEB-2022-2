@@ -4,11 +4,13 @@ var suma;
 //variables de canvas
 
 var lienzo = document.getElementById("canva");
-var lienzo2 = document.getElementById("canva");
-var lienzo3 = document.getElementById("canva");
+var lienzo2 = document.getElementById("canva2");
+var lienzo3 = document.getElementById("canva3");
 
 console.log(lienzo)
 var ctx = lienzo.getContext("2d");
+var ctx2 = lienzo2.getContext("2d");
+var ctx3 = lienzo3.getContext("2d");
 
 var x = lienzo.width/2-25;
 var y = 75;
@@ -37,6 +39,24 @@ function drawBackground(){
     ctx.font = '12px negrita Times';
     ctx.fillText ("x", 0, 100);
     ctx.fillText ("y", 0, 50);  
+}
+
+function drawBackground2(){
+    ctx2.fillStyle = "rgb(94, 209, 157)";
+    ctx2.fillRect (100, 50, lienzo.width, lienzo.height);
+
+    ctx2.font = '12px negrita Times';
+    ctx2.fillText ("x", 0, 100);
+    ctx2.fillText ("y", 0, 50);  
+}
+
+function drawBackground3(){
+    ctx3.fillStyle = "rgb(94, 209, 157)";
+    ctx3.fillRect (100, 50, lienzo.width, lienzo.height);
+
+    ctx3.font = '12px negrita Times';
+    ctx3.fillText ("x", 0, 100);
+    ctx3.fillText ("y", 0, 50);  
 }
 
 function pop(){
@@ -70,7 +90,7 @@ function drawblock(x, y, suma){
 
         ctx.fillStyle="rgb(67, 151, 188)";
         ctx.fillRect(x+120, y, 100,15);
-    }else if(suma = 9){
+    }else if(suma == 9){
         ctx.fillStyle="rgb(67, 151, 188)";
         ctx.fillRect(x, y, 220,15);
         ctx.fillStyle = "#000000";
@@ -81,6 +101,79 @@ function drawblock(x, y, suma){
     
     //ctx.fillText (contador, x + width/2-5, y+height/2+10);
     return [x, y, suma];
+}
+
+function drawblock2(x, y, hexagrama){
+    //console.log("esto si se esta haciendo");
+    
+    if(hexagrama == "___x___"){
+        ctx2.fillStyle="rgb(67, 151, 188)";
+        ctx2.fillRect(x, y, 100,15);
+
+        ctx2.fillStyle="rgb(67, 151, 188)";
+        ctx2.fillRect(x+120, y, 100,15);
+
+        ctx2.fillStyle = "#000000";
+        ctx2.font = '26px negrita Times';
+        ctx2.fillText("X", x+105, y);
+    }else if(hexagrama == "_______"){
+        ctx2.fillStyle="rgb(67, 151, 188)";
+        ctx2.fillRect(x, y, 220,15);
+    }else if(hexagrama == "__   __"){
+        ctx2.fillStyle="rgb(67, 151, 188)";
+        ctx2.fillRect(x, y, 100,15);
+
+        ctx2.fillStyle="rgb(67, 151, 188)";
+        ctx2.fillRect(x+120, y, 100,15);
+    }else if(hexagrama == "___0___"){
+        ctx2.fillStyle="rgb(67, 151, 188)";
+        ctx2.fillRect(x, y, 220,15);
+        ctx2.fillStyle = "#000000";
+        ctx2.font = '26px negrita Times';
+        ctx2.fillText("O", x+105, y);
+    }
+    
+        
+        
+    
+    //ctx.fillText (contador, x + width/2-5, y+height/2+10);
+    return [x, y];
+}
+
+function drawblock3(x, y, hexagrama){
+    //console.log("esto si se esta haciendo");
+    
+    if(hexagrama == "___x___"){
+        ctx3.fillStyle="rgb(67, 151, 188)";
+        ctx3.fillRect(x, y, 100,15);
+
+        ctx3.fillStyle="rgb(67, 151, 188)";
+        ctx3.fillRect(x+120, y, 100,15);
+
+        ctx3.fillStyle = "#000000";
+        ctx3.font = '26px negrita Times';
+        ctx3.fillText("X", x+105, y);
+    }else if(hexagrama == "_______"){
+        ctx3.fillStyle="rgb(67, 151, 188)";
+        ctx3.fillRect(x, y, 220,15);
+    }else if(hexagrama == "__   __"){
+        ctx3.fillStyle="rgb(67, 151, 188)";
+        ctx3.fillRect(x, y, 100,15);
+
+        ctx3.fillStyle="rgb(67, 151, 188)";
+        ctx3.fillRect(x+120, y, 100,15);
+    }else if(hexagrama == "___0___"){
+        ctx3.fillStyle="rgb(67, 151, 188)";
+        ctx3.fillRect(x, y, 220,15);
+        ctx3.fillStyle = "#000000";
+        ctx3.font = '26px negrita Times';
+        ctx3.fillText("O", x+105, y);
+    }
+
+        
+    
+    //ctx.fillText (contador, x + width/2-5, y+height/2+10);
+    return [x, y];
 }
 
 function animateBlockDrop(){
@@ -198,11 +291,11 @@ function generarLinea(a, b, c){
             }
         }
     
-        
+        animateBlockDrop();
     }
-
+    
     mostrarHexagrama(cadena, cadena1, cadena2, auxiliares);
-    animateBlockDrop();
+    
 }
 
 function mostrarHexagrama(cadena, cadena1, cadena2, auxiliares){
@@ -231,8 +324,24 @@ function mostrarHexagrama(cadena, cadena1, cadena2, auxiliares){
                 cadena2 += "<h1>"+auxiliares[2][i]+"</h1>";
             }
 
-            document.getElementById("lienzo2").innerHTML=cadena1;
-            document.getElementById("lienzo3").innerHTML=cadena2;
+            drawBackground2();
+            drawBackground3();
+
+            pila.unshift("");
+
+            console.log("aqui esta lo que buscas");
+            console.log(pila);
+            console.log(auxiliares);
+
+            pila.push([pila[5][0],pila[5][1]-35]);
+
+            for(var i = 1; i < hexagrama.length; i++){
+                drawblock2(pila[hexagrama.length-i][0], pila[hexagrama.length-i][1], auxiliares[1][i]);
+                drawblock3(pila[hexagrama.length-i][0], pila[hexagrama.length-i][1], auxiliares[2][i]);
+            }
+
+            //document.getElementById("lienzo2").innerHTML=cadena1;
+            //document.getElementById("lienzo3").innerHTML=cadena2;
 
         }
 
@@ -241,8 +350,29 @@ function mostrarHexagrama(cadena, cadena1, cadena2, auxiliares){
         console.log('columna"'+localizarenTabla(hexagrama)[0]+localizarenTabla(hexagrama)[1]+'"')
 
         if(auxiliares[0] == true){
-            document.getElementById('columna'+localizarenTabla(auxiliares[1])[0]+localizarenTabla(auxiliares[1])[1]+'').style.backgroundColor="yellow"; 
-            document.getElementById('columna'+localizarenTabla(auxiliares[2])[0]+localizarenTabla(auxiliares[2])[1]+'').style.backgroundColor="yellow";     
+            //document.getElementById('columna'+localizarenTabla(auxiliares[1])[0]+localizarenTabla(auxiliares[1])[1]+'').style.backgroundColor="yellow"; 
+            //document.getElementById('columna'+localizarenTabla(auxiliares[2])[0]+localizarenTabla(auxiliares[2])[1]+'').style.backgroundColor="yellow";     
+
+            var numeroHexagrama = document.getElementById('columna'+localizarenTabla(auxiliares[1])[0]+localizarenTabla(auxiliares[1])[1]+'');
+            var numeroHexagrama2 = document.getElementById('columna'+localizarenTabla(auxiliares[2])[0]+localizarenTabla(auxiliares[2])[1]+'');
+            
+            numeroHexagrama.style.backgroundColor="yellow";
+            numeroHexagrama2.style.backgroundColor="green";
+
+            var seccion = document.getElementById("canva2");
+            var seccion2 = document.getElementById("canva3");
+
+            console.log(seccion);
+            console.log(numeroHexagrama.textContent);
+
+            seccion.addEventListener("mouseover", function(event){
+                alert(TextoHexagrama(Number(numeroHexagrama.textContent)));
+            });
+
+            seccion2.addEventListener("mouseover", function(event){
+                alert(TextoHexagrama(Number(numeroHexagrama2.textContent)));
+            });
+
         }else{
             var numeroHexagrama = document.getElementById('columna'+localizarenTabla(hexagrama)[0]+localizarenTabla(hexagrama)[1]+'');
             numeroHexagrama.style.backgroundColor="yellow";
