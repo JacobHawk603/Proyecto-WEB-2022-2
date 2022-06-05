@@ -266,12 +266,14 @@ function mostrarHexagrama(cadena, cadena1, cadena2, auxiliares){
 }
 
 function localizarenTabla(hexagrama){
-    var trigramaInferior = [hexagrama[hexagrama.length-2], hexagrama[hexagrama.length-3], hexagrama[hexagrama.length-4]];
-    var trigramaSuperior = [hexagrama[2], hexagrama[1], hexagrama[0]];
+    var trigramaInferior = [hexagrama[hexagrama.length-1], hexagrama[hexagrama.length-2], hexagrama[hexagrama.length-3]];
+    var trigramaSuperior = [hexagrama[3], hexagrama[2], hexagrama[1]];
     var fila = 0;
     var columna = 0;
 
     console.log(hexagrama);
+    console.log(trigramaInferior);
+    console.log(trigramaSuperior);
 
     if(trigramaInferior.equals(["_______", "_______", "_______"])){
         fila = 0;
