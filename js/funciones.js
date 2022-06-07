@@ -12,7 +12,7 @@ var ctx = lienzo.getContext("2d");
 var ctx2 = lienzo2.getContext("2d");
 var ctx3 = lienzo3.getContext("2d");
 
-var x = lienzo.width/2-25;
+var x = lienzo.width/2-100;
 var y = 75;
 var bottom = lienzo.height-y/2;
 var pila = [];
@@ -33,8 +33,8 @@ var contador2 =26;
 //funciones de canvas
 
 function drawBackground(){
-    ctx.fillStyle = "rgb(94, 209, 157)";
-    ctx.fillRect (100, 50, lienzo.width, lienzo.height);
+    ctx.fillStyle = "white";
+    ctx.fillRect (0, 0, lienzo.width, lienzo.height);
 
     ctx.font = '12px negrita Times';
     ctx.fillText ("x", 0, 100);
@@ -42,8 +42,8 @@ function drawBackground(){
 }
 
 function drawBackground2(){
-    ctx2.fillStyle = "rgb(94, 209, 157)";
-    ctx2.fillRect (100, 50, lienzo.width, lienzo.height);
+    ctx2.fillStyle = "white";
+    ctx2.fillRect (0, 0, lienzo.width, lienzo.height);
 
     ctx2.font = '12px negrita Times';
     ctx2.fillText ("x", 0, 100);
@@ -51,8 +51,8 @@ function drawBackground2(){
 }
 
 function drawBackground3(){
-    ctx3.fillStyle = "rgb(94, 209, 157)";
-    ctx3.fillRect (100, 50, lienzo.width, lienzo.height);
+    ctx3.fillStyle = "white";
+    ctx3.fillRect (0, 0, lienzo.width, lienzo.height);
 
     ctx3.font = '12px negrita Times';
     ctx3.fillText ("x", 0, 100);
